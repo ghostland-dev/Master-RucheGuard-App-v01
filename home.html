@@ -1,0 +1,235 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Protection naturelle des abeilles</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--secondary);
+}
+
+.app-header {
+  background: linear-gradient(135deg, var(--primary), #F7941D);
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--secondary);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.nav-item i {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+.hive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.hive-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hive-card i {
+  margin-right: 8px;
+  color: var(--primary);
+}
+
+.hive-status {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.treatment-calendar {
+  background: white;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  border: none;
+  cursor: pointer;
+}
+
+.floating-button i {
+  font-size: 1.5rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.alert {
+  animation: pulse 2s infinite;
+}
+</style>
+</head>
+<body>
+  <header class="app-header">
+    <h1><i class="fas fa-shield-alt"></i> VarroaGuard</h1>
+    <p><i class="fas fa-bee"></i> Protection naturelle des abeilles</p>
+  </header>
+
+  <nav class="main-nav">
+    <a href="https://app.varroaguard.com/ruches" class="nav-item">
+      <i class="fas fa-home"></i>
+      Ruches
+    </a>
+    <a href="https://app.varroaguard.com/traitements" class="nav-item">
+      <i class="fas fa-prescription-bottle-medical"></i>
+      Traitements
+    </a>
+    <a href="https://app.varroaguard.com/statistiques" class="nav-item">
+      <i class="fas fa-chart-bar"></i>
+      Statistiques
+    </a>
+  </nav>
+
+  <main>
+    <div class="hive-grid">
+      <div class="hive-card">
+        <h3><i class="fas fa-archive"></i> Ruche #1</h3>
+        <div class="hive-status">
+          <span class="status-indicator" style="background: var(--success)"></span>
+          <i class="fas fa-check-circle"></i> Infestation faible
+        </div>
+        <p><i class="far fa-calendar-alt"></i> Prochain traitement: 15 jours</p>
+      </div>
+      
+      <div class="hive-card">
+        <h3><i class="fas fa-archive"></i> Ruche #2</h3>
+        <div class="hive-status">
+          <span class="status-indicator" style="background: var(--warning)"></span>
+          <i class="fas fa-exclamation-triangle"></i> Surveillance recommandée
+        </div>
+        <p><i class="fas fa-clock"></i> Traitement à planifier</p>
+      </div>
+    </div>
+
+    <div class="treatment-calendar">
+      <h2><i class="far fa-calendar-check"></i> Planning des traitements</h2>
+      <!-- Le calendrier sera implémenté avec une bibliothèque JavaScript -->
+    </div>
+  </main>
+
+  <button class="floating-button" onclick="addNewHive()">
+    <i class="fas fa-plus"></i>
+  </button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(() => {
+    showNotification("Rappel: Vérification du niveau d'infestation de la Ruche #2 demain");
+  }, 3000);
+});
+
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.style.position = 'fixed';
+  notification.style.top = '20px';
+  notification.style.right = '20px';
+  notification.style.background = 'white';
+  notification.style.padding = '1rem';
+  notification.style.borderRadius = '8px';
+  notification.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+  notification.style.maxWidth = '300px';
+  notification.innerHTML = message;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.transition = 'opacity 0.5s ease-out';
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 500);
+  }, 5000);
+}
+
+function addNewHive() {
+  // Fonction pour ajouter une nouvelle ruche
+  console.log("Ajout d'une nouvelle ruche");
+  // Implémentation à venir du formulaire d'ajout
+}
+
+// Gestion des interactions de base
+document.querySelectorAll('.hive-card').forEach(card => {
+  card.addEventListener('click', function() {
+    const hiveId = this.querySelector('h3').textContent.split('#')[1];
+    console.log("Détails de la ruche " + hiveId);
+    // Navigation vers la page de détails de la ruche
+  });
+});
+</script>
+</body></html>

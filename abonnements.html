@@ -1,0 +1,485 @@
+<html><head><base href="https://app.varroaguard.com/abonnements">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Abonnements</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.header p {
+  color: #666;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pricing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s;
+}
+
+.toggle-btn.active {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.pricing-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+}
+
+.popular-badge {
+  position: absolute;
+  top: 20px;
+  right: -35px;
+  background: var(--primary);
+  color: white;
+  padding: 8px 40px;
+  transform: rotate(45deg);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.plan-price {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.plan-price small {
+  font-size: 1rem;
+  color: #666;
+}
+
+.price-note {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.features-list {
+  list-style: none;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.features-list li {
+  padding: 0.5rem 0;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.features-list i {
+  color: var(--primary);
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comparison-table {
+  margin-top: 4rem;
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.comparison-table th {
+  background: var(--primary);
+  color: white;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.feature-included {
+  color: var(--success);
+}
+
+.feature-not-included {
+  color: var(--danger);
+}
+
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header animated">
+      <h1><i class="fas fa-cube"></i> Nos Abonnements</h1>
+      <p>Choisissez l'offre qui correspond le mieux à vos besoins et profitez de tous les avantages de VarroaGuard</p>
+    </div>
+
+    <div class="pricing-toggle animated">
+      <button class="toggle-btn active">Mensuel</button>
+      <label class="switch">
+        <input type="checkbox" id="billingToggle">
+        <span class="slider"></span>
+      </label>
+      <button class="toggle-btn">Annuel <span style="color: var(--success)">(-20%)</span></button>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Starter Plan -->
+      <div class="pricing-card animated">
+        <h2 class="plan-name">Starter</h2>
+        <div class="plan-price">
+          19€<small>/mois</small>
+        </div>
+        <p class="price-note">Pour les petits apiculteurs débutants</p>
+        <ul class="features-list">
+          <li><i class="fas fa-check"></i> Jusqu'à 10 ruches</li>
+          <li><i class="fas fa-check"></i> Suivi basique des colonies</li>
+          <li><i class="fas fa-check"></i> Alertes de base</li>
+          <li><i class="fas fa-check"></i> Support email</li>
+          <li class="text-muted"><i class="fas fa-times"></i> Analyse avancée</li>
+          <li class="text-muted"><i class="fas fa-times"></i> API</li>
+        </ul>
+        <button class="btn btn-outline">Commencer</button>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="pricing-card animated">
+        <div class="popular-badge">POPULAIRE</div>
+        <h2 class="plan-name">Professional</h2>
+        <div class="plan-price">
+          49€<small>/mois</small>
+        </div>
+        <p class="price-note">Pour les apiculteurs professionnels</p>
+        <ul class="features-list">
+          <li><i class="fas fa-check"></i> Jusqu'à 50 ruches</li>
+          <li><i class="fas fa-check"></i> Suivi avancé des colonies</li>
+          <li><i class="fas fa-check"></i> Alertes personnalisées</li>
+          <li><i class="fas fa-check"></i> Support prioritaire</li>
+          <li><i class="fas fa-check"></i> Analyse avancée</li>
+          <li><i class="fas fa-check"></i> Rapports mensuels</li>
+        </ul>
+        <button class="btn btn-primary">Souscrire</button>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="pricing-card animated">
+        <h2 class="plan-name">Enterprise</h2>
+        <div class="plan-price">
+          99€<small>/mois</small>
+        </div>
+        <p class="price-note">Pour les grandes exploitations</p>
+        <ul class="features-list">
+          <li><i class="fas fa-check"></i> Ruches illimitées</li>
+          <li><i class="fas fa-check"></i> Suivi premium</li>
+          <li><i class="fas fa-check"></i> Alertes en temps réel</li>
+          <li><i class="fas fa-check"></i> Support 24/7</li>
+          <li><i class="fas fa-check"></i> API complète</li>
+          <li><i class="fas fa-check"></i> Formation dédiée</li>
+        </ul>
+        <button class="btn btn-outline">Contacter</button>
+      </div>
+    </div>
+
+    <table class="comparison-table animated">
+      <thead>
+        <tr>
+          <th>Fonctionnalités</th>
+          <th>Starter</th>
+          <th>Professional</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nombre de ruches</td>
+          <td>10</td>
+          <td>50</td>
+          <td>Illimité</td>
+        </tr>
+        <tr>
+          <td>Alertes varroa</td>
+          <td><i class="fas fa-check feature-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+        </tr>
+        <tr>
+          <td>Analyse avancée</td>
+          <td><i class="fas fa-times feature-not-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+        </tr>
+        <tr>
+          <td>Support prioritaire</td>
+          <td><i class="fas fa-times feature-not-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+        </tr>
+        <tr>
+          <td>API Access</td>
+          <td><i class="fas fa-times feature-not-included"></i></td>
+          <td><i class="fas fa-times feature-not-included"></i></td>
+          <td><i class="fas fa-check feature-included"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Billing toggle functionality
+  const billingToggle = document.getElementById('billingToggle');
+  const toggleBtns = document.querySelectorAll('.toggle-btn');
+  const priceElements = document.querySelectorAll('.plan-price');
+  
+  const monthlyPrices = ['19€', '49€', '99€'];
+  const annualPrices = ['15€', '39€', '79€'];
+  
+  billingToggle.addEventListener('change', function() {
+    toggleBtns.forEach((btn, index) => {
+      btn.classList.toggle('active');
+    });
+    
+    priceElements.forEach((element, index) => {
+      const prices = billingToggle.checked ? annualPrices : monthlyPrices;
+      element.innerHTML = `${prices[index]}<small>/mois</small>`;
+    });
+  });
+  
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+  
+  // Animation on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+  
+  document.querySelectorAll('.animated').forEach(element => {
+    observer.observe(element);
+  });
+  
+  // Hover effects for pricing cards
+  const pricingCards = document.querySelectorAll('.pricing-card');
+  pricingCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      pricingCards.forEach(c => c.style.transform = 'scale(0.95)');
+      card.style.transform = 'scale(1.05)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      pricingCards.forEach(c => c.style.transform = 'scale(1)');
+    });
+  });
+  
+  // Button click effects
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Add ripple effect
+      const ripple = document.createElement('div');
+      ripple.classList.add('ripple');
+      this.appendChild(ripple);
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
+      
+      // Add your subscription logic here
+      console.log('Subscription button clicked:', this.textContent.trim());
+    });
+  });
+});
+</script>
+</body></html>

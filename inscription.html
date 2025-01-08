@@ -1,0 +1,412 @@
+<html><head><base href="https://app.varroaguard.com/inscription">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Inscription</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --error: #dc3545;
+  --success: #28a745;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.signup-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.step-active .step-number {
+  background: var(--primary);
+  color: white;
+}
+
+.step-complete .step-number {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.progress-line {
+  position: absolute;
+  top: 15px;
+  left: 50px;
+  right: 50px;
+  height: 2px;
+  background: #ddd;
+  z-index: 0;
+}
+
+.progress-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  flex: 1;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-secondary {
+  background: #ddd;
+  color: var(--secondary);
+}
+
+.validation-message {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.validation-message.error {
+  color: var(--error);
+}
+
+.validation-message.success {
+  color: var(--success);
+}
+
+/* Password strength indicator */
+.password-strength {
+  margin-top: 0.5rem;
+}
+
+.strength-meter {
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+  margin-top: 0.5rem;
+}
+
+.strength-meter div {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.strength-text {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+</style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="signup-card">
+      <div class="progress-bar">
+        <div class="progress-line">
+          <div class="progress-line-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-step step-active">
+          <div class="step-number">1</div>
+          <span>Profil</span>
+        </div>
+        <div class="progress-step">
+          <div class="step-number">2</div>
+          <span>Rucher</span>
+        </div>
+        <div class="progress-step">
+          <div class="step-number">3</div>
+          <span>Validation</span>
+        </div>
+      </div>
+
+      <form id="signupForm">
+        <!-- Étape 1: Informations de profil -->
+        <div class="form-step active" data-step="1">
+          <div class="form-group">
+            <label class="form-label" for="name">Nom complet</label>
+            <input type="text" id="name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input type="email" id="email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">Mot de passe</label>
+            <input type="password" id="password" class="form-input" required>
+            <div class="password-strength">
+              <div class="strength-meter">
+                <div id="strengthBar"></div>
+              </div>
+              <p class="strength-text" id="strengthText">Force du mot de passe</p>
+            </div>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn btn-primary" onclick="nextStep(1)">Suivant</button>
+          </div>
+        </div>
+
+        <!-- Étape 2: Informations du rucher -->
+        <div class="form-step" data-step="2">
+          <div class="form-group">
+            <label class="form-label" for="apiary-name">Nom du rucher</label>
+            <input type="text" id="apiary-name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="hive-count">Nombre de ruches</label>
+            <input type="number" id="hive-count" class="form-input" min="1" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="location">Localisation</label>
+            <input type="text" id="location" class="form-input" required>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Précédent</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Suivant</button>
+          </div>
+        </div>
+
+        <!-- Étape 3: Validation -->
+        <div class="form-step" data-step="3">
+          <div class="form-group">
+            <h3>Récapitulatif</h3>
+            <div id="summary" style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 6px;">
+              <!-- Rempli dynamiquement par JavaScript -->
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              <input type="checkbox" id="terms" required>
+              J'accepte les conditions d'utilisation et la politique de confidentialité
+            </label>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Précédent</button>
+            <button type="submit" class="btn btn-primary">Créer mon compte</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 3;
+
+function updateProgressBar(step) {
+  const progress = ((step - 1) / (totalSteps - 1)) * 100;
+  document.querySelector('.progress-line-fill').style.width = `${progress}%`;
+  
+  document.querySelectorAll('.progress-step').forEach((el, index) => {
+    el.classList.remove('step-active', 'step-complete');
+    if (index + 1 === step) {
+      el.classList.add('step-active');
+    } else if (index + 1 < step) {
+      el.classList.add('step-complete');
+    }
+  });
+}
+
+function showStep(step) {
+  document.querySelectorAll('.form-step').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+  updateProgressBar(step);
+}
+
+function validateStep(step) {
+  const currentStepElement = document.querySelector(`.form-step[data-step="${step}"]`);
+  const inputs = currentStepElement.querySelectorAll('input[required]');
+  let isValid = true;
+
+  inputs.forEach(input => {
+    if (!input.value) {
+      isValid = false;
+      input.classList.add('error');
+    } else {
+      input.classList.remove('error');
+    }
+  });
+
+  return isValid;
+}
+
+function nextStep(currentStepNum) {
+  if (validateStep(currentStepNum)) {
+    if (currentStepNum < totalSteps) {
+      currentStep = currentStepNum + 1;
+      showStep(currentStep);
+      if (currentStep === 3) {
+        updateSummary();
+      }
+    }
+  }
+}
+
+function prevStep(currentStepNum) {
+  if (currentStepNum > 1) {
+    currentStep = currentStepNum - 1;
+    showStep(currentStep);
+  }
+}
+
+function updateSummary() {
+  const summary = document.getElementById('summary');
+  summary.innerHTML = `
+    <p><strong>Nom:</strong> ${document.getElementById('name').value}</p>
+    <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+    <p><strong>Rucher:</strong> ${document.getElementById('apiary-name').value}</p>
+    <p><strong>Nombre de ruches:</strong> ${document.getElementById('hive-count').value}</p>
+    <p><strong>Localisation:</strong> ${document.getElementById('location').value}</p>
+  `;
+}
+
+// Password strength checker
+document.getElementById('password').addEventListener('input', function(e) {
+  const password = e.target.value;
+  const strengthBar = document.getElementById('strengthBar');
+  const strengthText = document.getElementById('strengthText');
+  
+  let strength = 0;
+  if (password.match(/[a-z]/)) strength++;
+  if (password.match(/[A-Z]/)) strength++;
+  if (password.match(/[0-9]/)) strength++;
+  if (password.match(/[^a-zA-Z0-9]/)) strength++;
+  if (password.length >= 8) strength++;
+
+  const strengthPercentage = (strength / 5) * 100;
+  strengthBar.style.width = `${strengthPercentage}%`;
+  
+  if (strength <= 2) {
+    strengthBar.style.backgroundColor = '#dc3545';
+    strengthText.textContent = 'Faible';
+  } else if (strength <= 4) {
+    strengthBar.style.backgroundColor = '#ffc107';
+    strengthText.textContent = 'Moyen';
+  } else {
+    strengthBar.style.backgroundColor = '#28a745';
+    strengthText.textContent = 'Fort';
+  }
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  if (validateStep(3) && document.getElementById('terms').checked) {
+    // Simulation d'envoi du formulaire
+    const submitButton = this.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Création en cours...';
+    
+    setTimeout(() => {
+      window.location.href = 'https://app.varroaguard.com/ruches';
+    }, 2000);
+  }
+});
+</script>
+</body></html>

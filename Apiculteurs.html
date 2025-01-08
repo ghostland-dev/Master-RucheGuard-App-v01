@@ -1,0 +1,417 @@
+<html><head><base href="https://app.varroaguard.com/apiculteurs">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Apiculteurs</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  min-height: 100vh;
+  padding: 2rem;
+  color: var(--secondary);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.filter-btn {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.beekeeper-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.beekeeper-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  background: var(--primary);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: -50px auto 1rem;
+  background: white;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar i {
+  font-size: 3rem;
+  color: var(--primary);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.stat-item {
+  background: var(--background);
+  padding: 0.8rem;
+  border-radius: 8px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin: 0.2rem;
+}
+
+.badge-success {
+  background: var(--success);
+  color: white;
+}
+
+.badge-warning {
+  background: var(--warning);
+  color: black;
+}
+
+.badge-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-container {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-user-friends"></i> Apiculteurs partenaires</h1>
+      <button class="filter-btn">
+        <i class="fas fa-filter"></i>
+        Filtres
+      </button>
+    </div>
+
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Rechercher un apiculteur...">
+      <button class="filter-btn">
+        <i class="fas fa-sort-amount-down"></i>
+        Trier
+      </button>
+    </div>
+
+    <div class="grid">
+      <!-- Apiculteur 1 -->
+      <div class="beekeeper-card fade-in">
+        <div class="card-header">
+          <h3>Thomas Dupont</h3>
+          <p>Paris, France</p>
+        </div>
+        <div class="card-body">
+          <div class="avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-value">25</div>
+              <div class="stat-label">Ruches</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">750</div>
+              <div class="stat-label">kg/an</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">4.8</div>
+              <div class="stat-label">Rating</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-success">Bio</span>
+            <span class="badge badge-warning">IGP</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary">
+              <i class="fas fa-envelope"></i>
+              Contact
+            </button>
+            <button class="btn btn-secondary">
+              <i class="fas fa-info-circle"></i>
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apiculteur 2 -->
+      <div class="beekeeper-card fade-in">
+        <div class="card-header">
+          <h3>Marie Laurent</h3>
+          <p>Lyon, France</p>
+        </div>
+        <div class="card-body">
+          <div class="avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-value">40</div>
+              <div class="stat-label">Ruches</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">1200</div>
+              <div class="stat-label">kg/an</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">4.9</div>
+              <div class="stat-label">Rating</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-success">Bio</span>
+            <span class="badge badge-success">Label Rouge</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary">
+              <i class="fas fa-envelope"></i>
+              Contact
+            </button>
+            <button class="btn btn-secondary">
+              <i class="fas fa-info-circle"></i>
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apiculteur 3 -->
+      <div class="beekeeper-card fade-in">
+        <div class="card-header">
+          <h3>Pierre Martin</h3>
+          <p>Bordeaux, France</p>
+        </div>
+        <div class="card-body">
+          <div class="avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-value">15</div>
+              <div class="stat-label">Ruches</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">450</div>
+              <div class="stat-label">kg/an</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">4.5</div>
+              <div class="stat-label">Rating</div>
+            </div>
+          </div>
+          <div>
+            <span class="badge badge-warning">En conversion</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary">
+              <i class="fas fa-envelope"></i>
+              Contact
+            </button>
+            <button class="btn btn-secondary">
+              <i class="fas fa-info-circle"></i>
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+// Animation au scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
+document.querySelectorAll('.beekeeper-card').forEach(card => {
+  observer.observe(card);
+});
+
+// Recherche en temps réel
+const searchInput = document.querySelector('.search-input');
+const beekeeperCards = document.querySelectorAll('.beekeeper-card');
+
+searchInput.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  
+  beekeeperCards.forEach(card => {
+    const name = card.querySelector('h3').textContent.toLowerCase();
+    const location = card.querySelector('p').textContent.toLowerCase();
+    
+    if (name.includes(searchTerm) || location.includes(searchTerm)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
+
+// Animation des statistiques
+function animateStats() {
+  const stats = document.querySelectorAll('.stat-value');
+  stats.forEach(stat => {
+    const value = parseFloat(stat.textContent);
+    let current = 0;
+    const increment = value / 30;
+    const updateStat = () => {
+      if (current < value) {
+        current += increment;
+        stat.textContent = Math.round(current * 10) / 10;
+        requestAnimationFrame(updateStat);
+      } else {
+        stat.textContent = value;
+      }
+    };
+    updateStat();
+  });
+}
+
+// Lancer l'animation des stats au chargement
+document.addEventListener('DOMContentLoaded', animateStats);
+</script>
+</body></html>

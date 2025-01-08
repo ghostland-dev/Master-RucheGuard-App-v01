@@ -1,0 +1,443 @@
+<html><head><base href="https://app.varroaguard.com/offres-et-producteurs">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Offres et Producteurs</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --warning: #ffc107;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: var(--secondary);
+  font-size: 1.8rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.filter-btn {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.marketplace {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.product-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--success);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.product-info {
+  padding: 1.5rem;
+}
+
+.product-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.product-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: white;
+}
+
+.secondary-btn {
+  background: var(--secondary);
+  color: white;
+}
+
+.filter-panel {
+  display: none;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-label {
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+.filter-select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .search-bar {
+    flex-direction: column;
+  }
+  
+  .marketplace {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Offres et Producteurs</h1>
+      <button class="filter-btn" onclick="toggleFilters()">
+        <i class="fas fa-sliders-h"></i>
+        Filtres
+      </button>
+    </header>
+
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Rechercher des produits ou des producteurs...">
+    </div>
+
+    <div class="filter-panel" id="filterPanel">
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label class="filter-label">Type de miel</label>
+          <select class="filter-select">
+            <option>Tous les types</option>
+            <option>Acacia</option>
+            <option>Lavande</option>
+            <option>Châtaignier</option>
+            <option>Toutes fleurs</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Région</label>
+          <select class="filter-select">
+            <option>Toutes les régions</option>
+            <option>Bretagne</option>
+            <option>Provence-Alpes-Côte d'Azur</option>
+            <option>Occitanie</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Prix</label>
+          <select class="filter-select">
+            <option>Tous les prix</option>
+            <option>Moins de 10€</option>
+            <option>10€ - 20€</option>
+            <option>Plus de 20€</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Certification</label>
+          <select class="filter-select">
+            <option>Toutes</option>
+            <option>Bio</option>
+            <option>Label Rouge</option>
+            <option>IGP</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button class="action-btn secondary-btn" onclick="resetFilters()">
+          <i class="fas fa-undo"></i>
+          Réinitialiser
+        </button>
+        <button class="action-btn primary-btn" onclick="applyFilters()">
+          <i class="fas fa-check"></i>
+          Appliquer
+        </button>
+      </div>
+    </div>
+
+    <div class="marketplace">
+      <!-- Produit 1 -->
+      <div class="product-card">
+        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80')">
+          <span class="product-badge">Bio</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Miel d'Acacia Bio</h3>
+          <div class="product-price">18.50 €/kg</div>
+          <div class="product-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              Bretagne
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              Apiculteur: Jean Dupont
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-star"></i>
+              4.8/5 (156 avis)
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="action-btn primary-btn">
+              <i class="fas fa-shopping-cart"></i>
+              Commander
+            </button>
+            <button class="action-btn secondary-btn">
+              <i class="fas fa-info-circle"></i>
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 2 -->
+      <div class="product-card">
+        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80')">
+          <span class="product-badge">IGP</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Miel de Lavande IGP</h3>
+          <div class="product-price">22.00 €/kg</div>
+          <div class="product-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              Provence
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              Apiculteur: Marie Martin
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-star"></i>
+              4.9/5 (203 avis)
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="action-btn primary-btn">
+              <i class="fas fa-shopping-cart"></i>
+              Commander
+            </button>
+            <button class="action-btn secondary-btn">
+              <i class="fas fa-info-circle"></i>
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Produit 3 -->
+      <div class="product-card">
+        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1558583055-d7ac00b1adca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80')">
+          <span class="product-badge">Label Rouge</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Miel de Châtaignier</h3>
+          <div class="product-price">16.90 €/kg</div>
+          <div class="product-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              Occitanie
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-user"></i>
+              Apiculteur: Pierre Dubois
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-star"></i>
+              4.7/5 (98 avis)
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="action-btn primary-btn">
+              <i class="fas fa-shopping-cart"></i>
+              Commander
+            </button>
+            <button class="action-btn secondary-btn">
+              <i class="fas fa-info-circle"></i>
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+function toggleFilters() {
+  const filterPanel = document.getElementById('filterPanel');
+  if (filterPanel.style.display === 'none' || filterPanel.style.display === '') {
+    filterPanel.style.display = 'block';
+  } else {
+    filterPanel.style.display = 'none';
+  }
+}
+
+function resetFilters() {
+  const selects = document.querySelectorAll('.filter-select');
+  selects.forEach(select => {
+    select.selectedIndex = 0;
+  });
+}
+
+function applyFilters() {
+  // Add your filter logic here
+  alert('Filtres appliqués !');
+  toggleFilters();
+}
+
+// Search functionality
+const searchInput = document.querySelector('.search-input');
+searchInput.addEventListener('input', function(e) {
+  const searchTerm = e.target.value.toLowerCase();
+  const products = document.querySelectorAll('.product-card');
+  
+  products.forEach(product => {
+    const title = product.querySelector('.product-title').textContent.toLowerCase();
+    const producer = product.querySelector('.detail-item:nth-child(2)').textContent.toLowerCase();
+    
+    if (title.includes(searchTerm) || producer.includes(searchTerm)) {
+      product.style.display = 'block';
+    } else {
+      product.style.display = 'none';
+    }
+  });
+});
+</script>
+</body></html>

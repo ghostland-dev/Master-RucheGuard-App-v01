@@ -1,0 +1,388 @@
+<html><head><base href="https://app.varroaguard.com/actualit%C3%A9s%20">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Actualités</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --text: #333333;
+  --light-gray: #E5E5E5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.news-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.news-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-image {
+  width: 100%;
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.news-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--primary);
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.news-content {
+  padding: 1.5rem;
+}
+
+.news-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.news-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.news-excerpt {
+  color: #666;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--light-gray);
+}
+
+.read-more {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.social-stats {
+  display: flex;
+  gap: 1rem;
+  color: #666;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.newsletter-section {
+  margin-top: 4rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 1.5rem auto;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.subscribe-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.subscribe-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .subscribe-btn {
+    width: 100%;
+    padding: 0.8rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-newspaper"></i> Actualités apicoles</h1>
+    </div>
+
+    <div class="news-filters">
+      <button class="filter-btn active">Tous</button>
+      <button class="filter-btn">Conseils</button>
+      <button class="filter-btn">Réglementation</button>
+      <button class="filter-btn">Santé des abeilles</button>
+      <button class="filter-btn">Innovation</button>
+    </div>
+
+    <div class="news-grid">
+      <!-- Article 1 -->
+      <article class="news-card">
+        <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1576514129883-2f1c26e39814')">
+          <span class="news-category">Santé des abeilles</span>
+        </div>
+        <div class="news-content">
+          <div class="news-date">
+            <i class="far fa-calendar"></i>
+            15 juin 2023
+          </div>
+          <h2 class="news-title">Nouvelle méthode de lutte contre le varroa découverte</h2>
+          <p class="news-excerpt">
+            Des chercheurs ont identifié une approche innovante utilisant des composés naturels pour lutter contre le varroa, promettant une solution plus écologique pour les apiculteurs.
+          </p>
+          <div class="news-footer">
+            <a href="https://app.varroaguard.com/actualites/nouvelle-methode-varroa" class="read-more">
+              Lire la suite <i class="fas fa-arrow-right"></i>
+            </a>
+            <div class="social-stats">
+              <span class="stat"><i class="far fa-heart"></i> 45</span>
+              <span class="stat"><i class="far fa-comment"></i> 12</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="news-card">
+        <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1587486913049-53fc88980cfc')">
+          <span class="news-category">Réglementation</span>
+        </div>
+        <div class="news-content">
+          <div class="news-date">
+            <i class="far fa-calendar"></i>
+            12 juin 2023
+          </div>
+          <h2 class="news-title">Nouvelles normes européennes pour l'apiculture biologique</h2>
+          <p class="news-excerpt">
+            L'Union Européenne renforce ses exigences pour la certification bio en apiculture. Découvrez les changements qui impacteront le secteur dès 2024.
+          </p>
+          <div class="news-footer">
+            <a href="https://app.varroaguard.com/actualites/normes-europe-bio" class="read-more">
+              Lire la suite <i class="fas fa-arrow-right"></i>
+            </a>
+            <div class="social-stats">
+              <span class="stat"><i class="far fa-heart"></i> 38</span>
+              <span class="stat"><i class="far fa-comment"></i> 8</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="news-card">
+        <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1587486913049-53fc88980cfc')">
+          <span class="news-category">Innovation</span>
+        </div>
+        <div class="news-content">
+          <div class="news-date">
+            <i class="far fa-calendar"></i>
+            10 juin 2023
+          </div>
+          <h2 class="news-title">VarroaGuard lance son application mobile</h2>
+          <p class="news-excerpt">
+            Suivez vos ruches en temps réel depuis votre smartphone. Notre nouvelle application facilite la gestion quotidienne de votre exploitation apicole.
+          </p>
+          <div class="news-footer">
+            <a href="https://app.varroaguard.com/actualites/application-mobile" class="read-more">
+              Lire la suite <i class="fas fa-arrow-right"></i>
+            </a>
+            <div class="social-stats">
+              <span class="stat"><i class="far fa-heart"></i> 67</span>
+              <span class="stat"><i class="far fa-comment"></i> 15</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section class="newsletter-section">
+      <h2>Restez informé</h2>
+      <p>Inscrivez-vous à notre newsletter pour recevoir les dernières actualités apicoles</p>
+      <form class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="Votre adresse email">
+        <button type="submit" class="subscribe-btn">S'abonner</button>
+      </form>
+    </section>
+  </div>
+
+<script>
+// Filtrage des actualités
+const filterButtons = document.querySelectorAll('.filter-btn');
+const newsCards = document.querySelectorAll('.news-card');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Reset active state
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    
+    // Filter logic would go here
+    const category = button.textContent.toLowerCase();
+    
+    newsCards.forEach(card => {
+      if (category === 'tous') {
+        card.style.display = 'block';
+        return;
+      }
+      
+      const cardCategory = card.querySelector('.news-category').textContent.toLowerCase();
+      card.style.display = cardCategory === category ? 'block' : 'none';
+    });
+  });
+});
+
+// Newsletter form handler
+const newsletterForm = document.querySelector('.newsletter-form');
+newsletterForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('.newsletter-input').value;
+  
+  // Here you would typically send this to your backend
+  alert(`Merci de votre inscription ! Un email de confirmation a été envoyé à ${email}`);
+  e.target.reset();
+});
+
+// Animation on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = 1;
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
+newsCards.forEach(card => {
+  observer.observe(card);
+});
+</script>
+</body></html>

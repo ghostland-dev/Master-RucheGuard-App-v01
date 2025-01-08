@@ -1,0 +1,519 @@
+<html><head><base href="https://app.varroaguard.com/profil">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Profil</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.profile-header {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: white;
+  position: relative;
+}
+
+.edit-avatar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.edit-avatar:hover {
+  transform: scale(1.1);
+}
+
+.profile-info h1 {
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+}
+
+.profile-status {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  background: var(--success);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.profile-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-tab {
+  padding: 1rem 2rem;
+  background: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-tab:hover {
+  transform: translateY(-2px);
+}
+
+.profile-tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+.profile-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-outline {
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.subscription-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.subscription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+}
+
+.notification-settings {
+  display: grid;
+  gap: 1rem;
+}
+
+.notification-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+}
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <i class="fas fa-user"></i>
+        <div class="edit-avatar">
+          <i class="fas fa-camera"></i>
+        </div>
+      </div>
+      <div class="profile-info">
+        <h1>Jean Dupont</h1>
+        <span class="profile-status">Compte Premium</span>
+        <p>Membre depuis le 15 janvier 2024</p>
+      </div>
+    </div>
+
+    <div class="profile-tabs">
+      <button class="profile-tab active">
+        <i class="fas fa-user"></i> Informations personnelles
+      </button>
+      <button class="profile-tab">
+        <i class="fas fa-credit-card"></i> Abonnement
+      </button>
+      <button class="profile-tab">
+        <i class="fas fa-bell"></i> Notifications
+      </button>
+      <button class="profile-tab">
+        <i class="fas fa-shield-alt"></i> Sécurité
+      </button>
+    </div>
+
+    <div class="profile-section">
+      <h2><i class="fas fa-user-edit"></i> Modifier mon profil</h2>
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="name">Nom complet</label>
+          <input type="text" id="name" class="form-control" value="Jean Dupont">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" value="jean.dupont@email.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">Téléphone</label>
+          <input type="tel" id="phone" class="form-control" value="+33 6 12 34 56 78">
+        </div>
+        <div class="form-group">
+          <label for="address">Adresse</label>
+          <input type="text" id="address" class="form-control" value="123 Rue des Abeilles">
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Enregistrer les modifications
+          </button>
+          <button type="reset" class="btn btn-outline">
+            <i class="fas fa-undo"></i> Réinitialiser
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="profile-section" style="display: none;">
+      <h2><i class="fas fa-credit-card"></i> Mon abonnement</h2>
+      <div class="subscription-card">
+        <div class="subscription-header">
+          <h3>Plan Premium</h3>
+          <span class="profile-status">Actif</span>
+        </div>
+        <p>Prochain renouvellement : 15 février 2024</p>
+        <p>Montant mensuel : 49.99€</p>
+        <button class="btn btn-outline" style="margin-top: 1rem">
+          <i class="fas fa-arrow-up"></i> Changer de plan
+        </button>
+      </div>
+      <div class="subscription-card">
+        <h3>Historique des paiements</h3>
+        <div class="activity-item">
+          <div class="activity-icon">
+            <i class="fas fa-receipt"></i>
+          </div>
+          <div>
+            <strong>Paiement du 15 janvier 2024</strong>
+            <p>49.99€ - Transaction réussie</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-section" style="display: none;">
+      <h2><i class="fas fa-bell"></i> Paramètres de notification</h2>
+      <div class="notification-settings">
+        <div class="notification-option">
+          <div>
+            <h3>Notifications par email</h3>
+            <p>Recevoir des mises à jour par email</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="notification-option">
+          <div>
+            <h3>Notifications push</h3>
+            <p>Recevoir des notifications sur le navigateur</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="notification-option">
+          <div>
+            <h3>Alertes de sécurité</h3>
+            <p>Être informé des activités suspectes</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-section" style="display: none;">
+      <h2><i class="fas fa-shield-alt"></i> Sécurité du compte</h2>
+      <div class="form-group">
+        <label for="current-password">Mot de passe actuel</label>
+        <input type="password" id="current-password" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="new-password">Nouveau mot de passe</label>
+        <input type="password" id="new-password" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirmer le nouveau mot de passe</label>
+        <input type="password" id="confirm-password" class="form-control">
+      </div>
+      <button class="btn btn-primary">
+        <i class="fas fa-key"></i> Modifier le mot de passe
+      </button>
+    </div>
+  </div>
+
+  <div class="modal" id="avatar-modal">
+    <div class="modal-content">
+      <h2>Modifier la photo de profil</h2>
+      <form id="avatar-form">
+        <div class="form-group">
+          <label for="avatar-upload">Choisir une image</label>
+          <input type="file" id="avatar-upload" class="form-control">
+        </div>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Tab switching
+  const tabs = document.querySelectorAll('.profile-tab');
+  const sections = document.querySelectorAll('.profile-section');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      // Remove active class from all tabs and hide all sections
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.style.display = 'none');
+
+      // Add active class to clicked tab and show corresponding section
+      tab.classList.add('active');
+      sections[index].style.display = 'block';
+    });
+  });
+
+  // Avatar modal
+  const avatarEdit = document.querySelector('.edit-avatar');
+  const modal = document.getElementById('avatar-modal');
+
+  avatarEdit.addEventListener('click', () => {
+    modal.style.display = 'flex';
+  });
+
+  window.closeModal = function() {
+    modal.style.display = 'none';
+  }
+
+  // Close modal when clicking outside
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Form submission
+  const profileForm = document.getElementById('profile-form');
+  profileForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    alert('Profil mis à jour avec succès !');
+  });
+
+  // Avatar form submission
+  const avatarForm = document.getElementById('avatar-form');
+  avatarForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Add your avatar upload logic here
+    closeModal();
+    alert('Photo de profil mise à jour avec succès !');
+  });
+
+  // Password strength indicator
+  const newPassword = document.getElementById('new-password');
+  if (newPassword) {
+    newPassword.addEventListener('input', function() {
+      // Add password strength validation logic here
+    });
+  }
+
+  // Notification settings
+  const notificationSwitches = document.querySelectorAll('.switch input');
+  notificationSwitches.forEach(switchInput => {
+    switchInput.addEventListener('change', function() {
+      const settingName = this.closest('.notification-option').querySelector('h3').textContent;
+      const status = this.checked ? 'activées' : 'désactivées';
+      alert(`${settingName} ${status}`);
+    });
+  });
+});
+</script>
+</body></html>

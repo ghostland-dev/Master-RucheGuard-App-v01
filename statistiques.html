@@ -1,0 +1,303 @@
+<html><head><base href="https://app.varroaguard.com/statistiques">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Statistiques</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--secondary);
+}
+
+.app-header {
+  background: linear-gradient(135deg, var(--primary), #F7941D);
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--secondary);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item i {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.stats-container {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-right: 1rem;
+}
+
+.chart-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.trend-up {
+  color: var(--success);
+}
+
+.trend-down {
+  color: var(--danger);
+}
+
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-button.active {
+  background: var(--primary);
+  color: white;
+}
+
+.chart-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--secondary);
+}
+
+</style>
+</head>
+<body>
+  <header class="app-header">
+    <h1><i class="fas fa-chart-bar"></i> Statistiques</h1>
+    <p>Suivi et analyse de vos ruches</p>
+  </header>
+
+  <nav class="main-nav">
+    <a href="https://app.varroaguard.com/ruches" class="nav-item">
+      <i class="fas fa-home"></i>
+      Ruches
+    </a>
+    <a href="https://app.varroaguard.com/traitements" class="nav-item">
+      <i class="fas fa-prescription-bottle-medical"></i>
+      Traitements
+    </a>
+    <a href="https://app.varroaguard.com/statistiques" class="nav-item active">
+      <i class="fas fa-chart-bar"></i>
+      Statistiques
+    </a>
+  </nav>
+
+  <main class="stats-container">
+    <div class="filter-bar">
+      <button class="filter-button active">7 jours</button>
+      <button class="filter-button">30 jours</button>
+      <button class="filter-button">6 mois</button>
+      <button class="filter-button">1 an</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <i class="fas fa-bug stat-icon"></i>
+          <div>
+            <div class="stat-value">5.2</div>
+            <div class="stat-label">Moyenne Varroas/100 abeilles</div>
+            <small class="trend-down"><i class="fas fa-arrow-down"></i> -2.1 depuis le dernier contrôle</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <i class="fas fa-check-circle stat-icon"></i>
+          <div>
+            <div class="stat-value">85%</div>
+            <div class="stat-label">Efficacité des traitements</div>
+            <small class="trend-up"><i class="fas fa-arrow-up"></i> +5% ce mois</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <i class="fas fa-calendar-check stat-icon"></i>
+          <div>
+            <div class="stat-value">12</div>
+            <div class="stat-label">Traitements effectués</div>
+            <small>Sur les 30 derniers jours</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h3 class="chart-title"><i class="fas fa-chart-line"></i> Évolution de l'infestation</h3>
+      <canvas id="infestationChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Répartition des méthodes de traitement</h3>
+      <canvas id="treatmentChart"></canvas>
+    </div>
+  </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Configuration du graphique d'infestation
+  const infestationCtx = document.getElementById('infestationChart').getContext('2d');
+  new Chart(infestationCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun'],
+      datasets: [{
+        label: 'Niveau d\'infestation',
+        data: [7.2, 6.8, 6.1, 5.6, 5.4, 5.2],
+        borderColor: '#FDB813',
+        tension: 0.4,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Varroas/100 abeilles'
+          }
+        }
+      }
+    }
+  });
+
+  // Configuration du graphique de répartition des traitements
+  const treatmentCtx = document.getElementById('treatmentChart').getContext('2d');
+  new Chart(treatmentCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Acide Oxalique', 'Thymol', 'Acide Formique', 'Autres'],
+      datasets: [{
+        data: [45, 30, 15, 10],
+        backgroundColor: [
+          '#FDB813',
+          '#28a745',
+          '#17a2b8',
+          '#6c757d'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'right'
+        }
+      }
+    }
+  });
+
+  // Gestion des boutons de filtre
+  const filterButtons = document.querySelectorAll('.filter-button');
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      // Ici on pourrait ajouter la logique pour mettre à jour les données
+    });
+  });
+});
+</script>
+</body></html>

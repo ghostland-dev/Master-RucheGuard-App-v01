@@ -1,0 +1,287 @@
+<html><head><base href="https://app.varroaguard.com/traitements">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VarroaGuard - Traitements</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #FDB813;
+  --secondary: #4A4A4A;
+  --background: #F5F5F5;
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--secondary);
+}
+
+.app-header {
+  background: linear-gradient(135deg, var(--primary), #F7941D);
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--secondary);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item i {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.treatment-section {
+  background: white;
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.treatment-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  background: white;
+  transition: transform 0.2s;
+}
+
+.treatment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.treatment-icon {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-right: 1rem;
+}
+
+.treatment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.treatment-details {
+  margin-left: 3rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.treatment-steps {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.treatment-steps li {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.treatment-steps li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+}
+
+.dosage-info {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.warning-text {
+  color: var(--warning);
+  font-weight: bold;
+}
+
+.danger-text {
+  color: var(--danger);
+  font-weight: bold;
+}
+
+.info-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin: 0.25rem;
+}
+
+.season-badge {
+  background: var(--info);
+  color: white;
+}
+
+.difficulty-badge {
+  background: var(--warning);
+  color: black;
+}
+
+</style>
+</head>
+<body>
+  <header class="app-header">
+    <h1><i class="fas fa-prescription-bottle-medical"></i> Traitements</h1>
+    <p>Guide des traitements naturels contre le Varroa</p>
+  </header>
+
+  <nav class="main-nav">
+    <a href="https://app.varroaguard.com/ruches" class="nav-item">
+      <i class="fas fa-home"></i>
+      Ruches
+    </a>
+    <a href="https://app.varroaguard.com/traitements" class="nav-item active">
+      <i class="fas fa-prescription-bottle-medical"></i>
+      Traitements
+    </a>
+    <a href="https://app.varroaguard.com/statistiques" class="nav-item">
+      <i class="fas fa-chart-bar"></i>
+      Statistiques
+    </a>
+  </nav>
+
+  <main>
+    <section class="treatment-section">
+      <div class="treatment-card">
+        <div class="treatment-header">
+          <i class="fas fa-flask treatment-icon"></i>
+          <div>
+            <h3>Acide Oxalique</h3>
+            <span class="info-badge season-badge">Hiver</span>
+            <span class="info-badge difficulty-badge">Intermédiaire</span>
+          </div>
+        </div>
+        <div class="treatment-details">
+          <p>Traitement par sublimation ou dégouttement, idéal hors couvain</p>
+          <div class="dosage-info">
+            <i class="fas fa-vial"></i> Dosage recommandé: 2.3% solution pour dégouttement
+          </div>
+          <ul class="treatment-steps">
+            <li>Préparer la solution selon les instructions</li>
+            <li>Appliquer tôt le matin ou tard le soir</li>
+            <li>Répéter après 7 jours si nécessaire</li>
+          </ul>
+          <p class="warning-text"><i class="fas fa-exclamation-triangle"></i> Porter un équipement de protection</p>
+        </div>
+      </div>
+
+      <div class="treatment-card">
+        <div class="treatment-header">
+          <i class="fas fa-leaf treatment-icon"></i>
+          <div>
+            <h3>Thymol Naturel</h3>
+            <span class="info-badge season-badge">Été</span>
+            <span class="info-badge difficulty-badge">Facile</span>
+          </div>
+        </div>
+        <div class="treatment-details">
+          <p>Traitement naturel à base d'huile essentielle de thym</p>
+          <div class="dosage-info">
+            <i class="fas fa-temperature-high"></i> Efficace entre 20°C et 25°C
+          </div>
+          <ul class="treatment-steps">
+            <li>Placer les plaquettes sur les cadres</li>
+            <li>Maintenir 3-4 semaines</li>
+            <li>Surveiller la température</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="treatment-card">
+        <div class="treatment-header">
+          <i class="fas fa-spray-can treatment-icon"></i>
+          <div>
+            <h3>Acide Formique</h3>
+            <span class="info-badge season-badge">Printemps/Été</span>
+            <span class="info-badge difficulty-badge">Avancé</span>
+          </div>
+        </div>
+        <div class="treatment-details">
+          <p>Traitement par évaporation, efficace même avec couvain</p>
+          <div class="dosage-info">
+            <i class="fas fa-tint"></i> Concentration: 60-85% selon la méthode
+          </div>
+          <ul class="treatment-steps">
+            <li>Vérifier les conditions météo</li>
+            <li>Installer les diffuseurs</li>
+            <li>Contrôler quotidiennement</li>
+          </ul>
+          <p class="danger-text"><i class="fas fa-skull-crossbones"></i> Manipuler avec précaution</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Ajout des interactions sur les cartes de traitement
+  const treatmentCards = document.querySelectorAll('.treatment-card');
+  
+  treatmentCards.forEach(card => {
+    card.addEventListener('click', function() {
+      // Animation simple au clic
+      this.style.transform = 'scale(0.98)';
+      setTimeout(() => {
+        this.style.transform = 'translateY(-2px)';
+      }, 100);
+      
+      // Ici on pourrait ajouter une modal avec plus de détails
+      const treatmentName = this.querySelector('h3').textContent;
+      console.log(`Détails du traitement: ${treatmentName}`);
+    });
+  });
+
+  // Fonction pour afficher des tooltips d'information
+  function addTooltip(element, text) {
+    element.setAttribute('title', text);
+    element.style.cursor = 'help';
+  }
+
+  // Ajout de tooltips sur les badges
+  document.querySelectorAll('.info-badge').forEach(badge => {
+    if (badge.classList.contains('season-badge')) {
+      addTooltip(badge, 'Période optimale d\'application');
+    } else if (badge.classList.contains('difficulty-badge')) {
+      addTooltip(badge, 'Niveau de difficulté d\'application');
+    }
+  });
+});
+</script>
+</body></html>
